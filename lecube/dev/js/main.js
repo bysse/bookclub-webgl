@@ -17,6 +17,8 @@ var load = function() {
 		if (gl === null) {
 			alert("Could not initialize WebGL");
 		} else {				
+			sync.init(85.0/60.0); // set the sync unit to 85 BPM
+
 			initialize(gl, w, h, 
 				function() {
 					// Start the main loop
@@ -38,4 +40,9 @@ var initialize = function(gl, w, h, onInitialized) {
 
 var main = function(gl, time, dt) {
 	// TODO: run the effects here
+	var r = sync.fadeout(time, 0, 1);
+	var g = sync.fadeout(time, 1, 1);
+	var b = sync.fadeout(time, 2, 1);
+	gl.clearColor(r, g, b, 1);
+	gl.clear(gl.COLOR_BUFFER_BIT);
 };

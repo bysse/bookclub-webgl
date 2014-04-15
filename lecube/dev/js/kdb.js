@@ -48,13 +48,13 @@ var kdb = function() {
 			console.log("Could not initialize WebGL", e);
 			return null;			
 		}		
-	}
+	};
 	
 	/**
 	 * Toggles the pause state.
 	 */
 	var togglePause = function() {
-		if (updateCallback == null) {
+		if (updateCallback === null) {
 			// not started yet
 			return;
 		}
@@ -65,7 +65,7 @@ var kdb = function() {
 			console.log("KDB: Unpaused");
 			loop(updateCallback);
 		}
-	}
+	};
 	
 	/**
 	 * Set the function that should be used in the main loop.
@@ -92,7 +92,7 @@ var kdb = function() {
 			}
 		};
 		tick();
-	}
+	};
 	
 	/**
 	 * Turn on fullscreen.
@@ -101,7 +101,7 @@ var kdb = function() {
 		var el = document.documentElement;
 		var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
 	 	//rfs.call(el);		
-	}
+	};
 	
 	/**
 	 * Load an image from a dataUrl.
@@ -122,7 +122,7 @@ var kdb = function() {
 		    callback(image.width, image.height, imageData);
 		};
 		image.src = data;	
-	}
+	};
 	
 	var loadText = function(text) {
 	    var canvas = document.createElement('canvas');
@@ -136,7 +136,7 @@ var kdb = function() {
 	    context.font = "32px monospace";
 	    context.fillText(text, canvas.width/2, 0);
 	    return context.getImageData(0, 0, canvas.width, canvas.height);
-	}
+	};
 	
 	var staticBuffer = function(stride, vertices) {
 		var buffer = gl.createBuffer();
@@ -202,7 +202,7 @@ var kdb = function() {
 			
 			return program;
 		}
-	}
+	};
 	
 	/**
 	 * Creates a dynamic array buffer for the data.
@@ -222,7 +222,7 @@ var kdb = function() {
 	 */
 	Buffer.prototype.bind = function() {
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.id);
-	}
+	};
 	
 	/**
 	 * Update the buffer with new data.
@@ -232,7 +232,7 @@ var kdb = function() {
 	Buffer.prototype.update = function(offset, data) {
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.id);
 		gl.bufferSubData(gl.ARRAY_BUFFER, offset, new Float32Array(data));
-	}
+	};
 	
 	/**
 	 * Creates a shader program.
@@ -244,7 +244,7 @@ var kdb = function() {
 		this.a = {};
 		this.u = {};
 		
-		if (this.program == null) {
+		if (this.program === null) {
 			throw "Can't create Program<"+vertexShaderId+", "+fragmentShaderId+">";
 		}
 	};
@@ -273,7 +273,7 @@ var kdb = function() {
 	 */
 	Program.prototype.uniform = function(name) {
 		this.u[name] = gl.getUniformLocation(this.program, name);
-		if (this.u[name] == undefined) {
+		if (this.u[name] === undefined) {
 			console.log("Uniform " + name + " was not found");
 		}
 	};
