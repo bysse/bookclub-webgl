@@ -26,10 +26,15 @@ var sync = function() {
 		return fadein(time, start, dur0)*fadeout(time, stop, dur1);
 	};
 
+	var unit = function(time, x) {
+		return tounit(time) % (x*unit);
+	};
+
 	return {
 		init : init,
 		fadein : fadein,
 		fadeout : fadeout,
-		interval : interval
+		interval : interval,
+		unit : unit
 	};
 }();

@@ -40,9 +40,10 @@ var initialize = function(gl, w, h, onInitialized) {
 
 var main = function(gl, time, dt) {
 	// TODO: run the effects here
-	var r = sync.fadeout(time, 0, 1);
-	var g = sync.fadeout(time, 1, 1);
-	var b = sync.fadeout(time, 2, 1);
+	var u = sync.unit(time, 2);
+	var r = sync.fadeout(u, 0, 2);
+	var g = sync.fadeout(u, 1, 1);
+	var b = sync.fadeout(u, 0, 2);
 	gl.clearColor(r, g, b, 1);
 	gl.clear(gl.COLOR_BUFFER_BIT);
 };
