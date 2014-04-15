@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>LeCube</title>
+	<style>
+		* { 
+			margin: 0; 
+			border: 0; 
+		}
+
+		#WebGLCanvas { 
+			-webkit-transform: scale3d(2.0, 2.0, 1.0);
+			-webkit-transform-origin: 0 0 0;
+			cursor: none;
+		}
+	</style>
+</head>
+<body onload="load()">
+
+<audio id="WebAudio" src="lecube.mp3" preload="auto"></audio>
+
+<canvas id="WebGLCanvas" style="border: none" width="800" height="600"></canvas>
+	
+<!-- build:js js/webgl_minimized.js -->
+<script type="text/javascript" src="js_vendor/jquery-2.1.0.js"></script>
+
+<script type="text/javascript" src="js_vendor/webgl-utils.js"></script>
+
+<script type="text/javascript" src="js_vendor/webgl-debug.js"></script>
+
+<script type="text/javascript" src="js_vendor/cuon-utils.js"></script>
+
+<script type="text/javascript" src="js/kdb.js"></script>
+
+<script type="text/javascript" src="js/main.js"></script>
+<!-- endbuild -->
+</body>
+</html>

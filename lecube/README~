@@ -1,0 +1,9 @@
+1. Install NodeJS and aadd it to the path
+
+2. Run
+
+   "npm install -g grunt-cli"
+
+3. In the project directory run 
+
+   "npm install grunt --save-dev"
