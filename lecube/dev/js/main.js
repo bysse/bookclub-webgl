@@ -30,20 +30,25 @@ var load = function() {
 
 
 var initialize = function(gl, w, h, onInitialized) {
+	gl.enable(gl.DEPTH_TEST);
+	gl.enable(gl.CULL_FACE);
 
 	// TODO: initialize effects here
+	window.quad = geometry.quad(1);
 
 	onInitialized();
 };
 
 
 
-var main = function(gl, time, dt) {
-	// TODO: run the effects here
+var main = function(gl, time, dt) {	
+	// cycle the background color over 2 beats
 	var u = sync.unit(time, 2);
-	var r = sync.fadeout(u, 0, 2);
-	var g = sync.fadeout(u, 1, 1);
-	var b = sync.fadeout(u, 0, 2);
-	gl.clearColor(r, g, b, 1);
-	gl.clear(gl.COLOR_BUFFER_BIT);
+	var c = (Math.sin(u*3.1415) + 1.0) * 0.1;
+	gl.clearColor(c, c, c, 1);	
+
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+
+	// TODO: run the effects here
 };

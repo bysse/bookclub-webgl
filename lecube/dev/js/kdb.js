@@ -293,5 +293,30 @@ var kdb = function() {
 }();
 
 
+var geometry = function() {
+
+	var quad = function(size) {
+		var buffer = kdb.staticBuffer(3, [-size, -size, 0, size, -size, 0, -size, size, 0, size, size, 0]);
+		return {
+			bind : function(gl, attribute) {
+				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
+				gl.vertexAttribPointer(attribute, quad.stride, gl.FLOAT, false, 0, 0);			
+			},
+			draw : function(gl) {
+				gl.drawArrays(gl.TRIANGLE_STRIP, 0, quad.elements);				
+			}
+		};		
+	};	
+
+	var cube = function(size) {
+		var buffer = kdb.staticBuffer(3, [-1, -1, 0, 1, -1, 0, -1, 1, 0, 1, 1, 0]);
+		return {
+
+		};		
+	};
 
 
+	return {
+		quad : quad
+	};
+}();

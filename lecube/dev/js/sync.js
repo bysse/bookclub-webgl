@@ -1,10 +1,10 @@
 var sync = function() {
-	var unit = 120 / 60;
+	var units = 120 / 60;
 
-	var tounit = function(time) { return time / unit; };
+	var tounit = function(time) { return time / units; };
 
 	var init = function(u) {
-		unit = u;
+		units = u;
 	};
 
 	var fadein = function(time, start, duration) {
@@ -27,7 +27,7 @@ var sync = function() {
 	};
 
 	var unit = function(time, x) {
-		return tounit(time) % (x*unit);
+		return tounit(time) % (x*units);
 	};
 
 	return {
