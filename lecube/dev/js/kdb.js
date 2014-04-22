@@ -300,18 +300,38 @@ var geometry = function() {
 		return {
 			bind : function(gl, attribute) {
 				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
-				gl.vertexAttribPointer(attribute, quad.stride, gl.FLOAT, false, 0, 0);			
+				gl.vertexAttribPointer(attribute, buffer.stride, gl.FLOAT, false, 0, 0);			
 			},
 			draw : function(gl) {
-				gl.drawArrays(gl.TRIANGLE_STRIP, 0, quad.elements);				
+				gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.elements);				
 			}
 		};		
 	};	
 
 	var cube = function(size) {
-		var buffer = kdb.staticBuffer(3, [-1, -1, 0, 1, -1, 0, -1, 1, 0, 1, 1, 0]);
+		var buffer = kdb.staticBuffer(3, [
+				-size,-size,-size
+				-size,size,-size
+				size,size,-size
+				size,size,size
+				size,-size,size
+				-size,-size,-size
+				-size,-size,size
+				-size,size,size
+				-size,size,-size
+				-size,size,-size
+				-size,size,size
+				-size,-size,size
+				size,-size,size
+			]);
 		return {
-
+			bind : function(gl, attribute) {
+				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
+				gl.vertexAttribPointer(attribute, buffer.stride, gl.FLOAT, false, 0, 0);			
+			},
+			draw : function(gl) {
+				gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.elements);				
+			}
 		};		
 	};
 
