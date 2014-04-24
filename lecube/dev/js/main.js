@@ -29,12 +29,17 @@ var load = function() {
 };
 
 
+var quad, background;
+
 var initialize = function(gl, w, h, onInitialized) {
 	gl.enable(gl.DEPTH_TEST);
 	gl.enable(gl.CULL_FACE);
 
 	// TODO: initialize effects here
-	window.quad = geometry.quad(1);
+	quad = geometry.quad(1);
+ 
+	background = new kdb.Program('v_background', 'f_background');
+	background.attribute('vertex');
 
 	onInitialized();
 };
@@ -50,5 +55,9 @@ var main = function(gl, time, dt) {
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
 
+	// DEBUG background effect
+	background.use();
+	quad.bind(gl, background.a.vertex);
+	quad.draw(gl);
 	// TODO: run the effects here
 };

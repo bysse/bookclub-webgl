@@ -21,6 +21,28 @@
 <audio id="WebAudio" src="assets/audio/DemoSceneMusic.mp3" preload="auto"></audio>
 
 <canvas id="WebGLCanvas" style="border: none" width="800" height="600"></canvas>
+
+<script id="v_background" type="x-shader/x-vertex">
+ 	attribute vec3 vertex;
+	varying vec2 fragPosition;  
+	void main(void) {
+		fragPosition = vertex.xy;
+    	gl_Position = vec4(vertex, 1.0);
+  	}  
+  	</script>
+
+	<script id="f_background" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec2 fragPosition;  
+	void main(void) {								
+		vec3 colorA = vec3(1.00, 0.27, 0.00);
+		vec3 colorB = vec3(1.00, 0.60, 0.00);		
+		float dist = length(fragPosition);	
+		vec3 color = mix(colorB, colorA, dist*0.75);		
+		gl_FragColor = vec4(color, 1.0);		
+	} 
+ 	</script>
+
 	
 <!-- build:js js/webgl_minimized.js -->
 <script type="text/javascript" src="js_vendor/jquery-2.1.0.js"></script>

@@ -299,7 +299,8 @@ var geometry = function() {
 		var buffer = kdb.staticBuffer(3, [-size, -size, 0, size, -size, 0, -size, size, 0, size, size, 0]);
 		return {
 			bind : function(gl, attribute) {
-				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
+				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);	
+				gl.enableVertexAttribArray(attribute);		
 				gl.vertexAttribPointer(attribute, buffer.stride, gl.FLOAT, false, 0, 0);			
 			},
 			draw : function(gl) {
@@ -310,23 +311,24 @@ var geometry = function() {
 
 	var cube = function(size) {
 		var buffer = kdb.staticBuffer(3, [
-				-size,-size,-size
-				-size,size,-size
-				size,size,-size
-				size,size,size
-				size,-size,size
-				-size,-size,-size
-				-size,-size,size
-				-size,size,size
-				-size,size,-size
-				-size,size,-size
-				-size,size,size
-				-size,-size,size
+				-size,-size,-size,
+				-size,size,-size,
+				size,size,-size,
+				size,size,size,
+				size,-size,size,
+				-size,-size,-size,
+				-size,-size,size,
+				-size,size,size,
+				-size,size,-size,
+				-size,size,-size,
+				-size,size,size,
+				-size,-size,size,
 				size,-size,size
 			]);
 		return {
 			bind : function(gl, attribute) {
 				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
+				gl.enableVertexAttribArray(attribute);
 				gl.vertexAttribPointer(attribute, buffer.stride, gl.FLOAT, false, 0, 0);			
 			},
 			draw : function(gl) {
