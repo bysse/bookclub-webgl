@@ -36,6 +36,9 @@ var initialize = function(gl, w, h, onInitialized) {
 	gl.enable(gl.CULL_FACE);
 
 	// TODO: initialize effects here
+	camera.initialize(gl);
+
+
 	quad = geometry.quad(1);
  
 	background = new kdb.Program('v_background', 'f_background');
@@ -56,8 +59,12 @@ var main = function(gl, time, dt) {
 
 
 	// DEBUG background effect
-	background.use();
-	quad.bind(gl, background.a.vertex);
-	quad.draw(gl);
+	//background.use();
+	//quad.bind(gl, background.a.vertex);
+	//quad.draw(gl);
+	//gl.clear(gl.DEPTH_BUFFER_BIT);
+
 	// TODO: run the effects here
+
+	camera.update(gl, time, dt);
 };

@@ -277,7 +277,7 @@ var kdb = function() {
 			console.log("Uniform " + name + " was not found");
 		}
 	};
-	
+
 	return {
 		initialize : initialize,
 		fullscreen : fullscreen,
@@ -310,20 +310,22 @@ var geometry = function() {
 	};	
 
 	var cube = function(size) {
+		var s = size;
 		var buffer = kdb.staticBuffer(3, [
-				-size,-size,-size,
-				-size,size,-size,
-				size,size,-size,
-				size,size,size,
-				size,-size,size,
-				-size,-size,-size,
-				-size,-size,size,
-				-size,size,size,
-				-size,size,-size,
-				-size,size,-size,
-				-size,size,size,
-				-size,-size,size,
-				size,-size,size
+				 s, -s, -s,	// A
+				 s, -s,  s,	// B
+				-s, -s, -s,	// C
+				-s, -s,  s,	// D
+				-s,  s,  s,	// E
+				 s, -s,  s,	// B				 
+				 s,  s,  s, // F
+				 s,  s, -s,	// G
+				-s,  s,  s,	// E 
+				-s,  s, -s,	// H
+				-s, -s, -s,	// C
+				 s,  s, -s,	// G
+				 s, -s, -s,	// A
+				 s, -s,  s	// B
 			]);
 		return {
 			bind : function(gl, attribute) {
@@ -339,6 +341,7 @@ var geometry = function() {
 
 
 	return {
-		quad : quad
+		quad : quad,
+		cube : cube
 	};
 }();

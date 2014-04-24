@@ -29,9 +29,9 @@
 		fragPosition = vertex.xy;
     	gl_Position = vec4(vertex, 1.0);
   	}  
-  	</script>
+</script>
 
-	<script id="f_background" type="x-shader/x-fragment">
+<script id="f_background" type="x-shader/x-fragment">
 	precision mediump float;
 	varying vec2 fragPosition;  
 	void main(void) {								
@@ -41,7 +41,35 @@
 		vec3 color = mix(colorB, colorA, dist*0.75);		
 		gl_FragColor = vec4(color, 1.0);		
 	} 
- 	</script>
+</script>
+
+<script id="v_transform" type="x-shader/x-vertex">
+ 	attribute vec3 vertex;
+
+ 	uniform mat4 uProjection;
+ 	uniform mat4 uView;
+ 	uniform mat4 uModel;
+
+	varying vec2 fragPosition;  
+	void main(void) {
+		fragPosition = vertex.xy;
+		mat4 modelView = uView * uModel;
+		// normal = modelView * inputNormal
+    	gl_Position = uProjection * modelView * vec4(vertex, 1.0);
+  	}  
+</script>
+
+<script id="f_transform" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec2 fragPosition;  
+	void main(void) {								
+		vec3 colorA = vec3(1.00, 0.27, 0.00);
+		vec3 colorB = vec3(1.00, 0.60, 0.00);		
+		float dist = length(fragPosition);	
+		vec3 color = mix(colorB, colorA, dist*0.5);		
+		gl_FragColor = vec4(color, 1.0);		
+	} 
+</script>
 
 	
 <!-- build:js js/webgl_minimized.js -->
@@ -52,6 +80,10 @@
 <script type="text/javascript" src="js_vendor/webgl-debug.js"></script>
 
 <script type="text/javascript" src="js_vendor/cuon-utils.js"></script>
+
+<script type="text/javascript" src="js_vendor/cuon-matrix.js"></script>
+
+<script type="text/javascript" src="js/camera.js"></script>
 
 <script type="text/javascript" src="js/kdb.js"></script>
 
