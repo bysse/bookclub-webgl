@@ -3,6 +3,8 @@ var sync = function() {
 
 	var tounit = function(time) { return time / units; };
 
+	var totime = function(unit) { return unit * units; };
+
 	var init = function(u) {
 		units = u;
 	};
@@ -27,7 +29,16 @@ var sync = function() {
 	};
 
 	var unit = function(time, x) {
-		return (tounit(time) % (x*units)) / (x*units);
+		return (tounit(time) % x) / x;
+	};
+
+	var step = function(time, x) {
+		return tounit(time) >= x ? 1 : 0;
+	};
+
+	function smoothstep(min, max, value) {
+  		var x = Math.max(0, Math.min(1, (value-min)/(max-min)));
+  		return x*x*(3 - 2*x);
 	};
 
 	return {
@@ -35,6 +46,10 @@ var sync = function() {
 		fadein : fadein,
 		fadeout : fadeout,
 		interval : interval,
-		unit : unit
+		unit : unit,
+		tounit : tounit,
+		totime : totime,
+		step : step,
+		smoothstep : smoothstep
 	};
 }();

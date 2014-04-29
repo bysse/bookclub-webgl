@@ -9,7 +9,7 @@
 			border: 0; 
 		}
 
-		#WebGLCanvas { 
+		#WebGLCanvas-dummy { 
 			-webkit-transform: scale3d(2.0, 2.0, 1.0);
 			-webkit-transform-origin: 0 0 0;
 			cursor: none;
@@ -63,10 +63,11 @@
 	precision mediump float;
 	varying vec2 fragPosition;  
 	void main(void) {								
-		vec3 colorA = vec3(1.00, 0.27, 0.00);
-		vec3 colorB = vec3(1.00, 0.60, 0.00);		
+		vec3 colorA = vec3(0.10, 0.10, 0.10);
+		vec3 colorB = vec3(0.80, 0.80, 0.80);		
 		float dist = length(fragPosition);	
-		vec3 color = mix(colorB, colorA, dist*0.5);		
+		vec3 color = mix(colorB, colorA, dist*.5);		
+
 		gl_FragColor = vec4(color, 1.0);		
 	} 
 </script>
@@ -84,6 +85,8 @@
 <script type="text/javascript" src="js_vendor/cuon-matrix.js"></script>
 
 <script type="text/javascript" src="js/camera.js"></script>
+
+<script type="text/javascript" src="js/roller.js"></script>
 
 <script type="text/javascript" src="js/kdb.js"></script>
 

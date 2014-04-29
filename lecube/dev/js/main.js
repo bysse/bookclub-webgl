@@ -10,10 +10,10 @@ var load = function() {
 
 		// divide the size by two to save some power during development
 		// the CSS style on #WebGLCanvas will scale it up by two to compensate
-		w /= 2;
-		h /= 2;
+		//w /= 2;
+		//h /= 2;
 		
-		var gl = kdb.initialize("WebGLCanvas", w/2, h/2);
+		var gl = kdb.initialize("WebGLCanvas", w, h);
 		if (gl === null) {
 			alert("Could not initialize WebGL");
 		} else {				
@@ -22,6 +22,7 @@ var load = function() {
 			initialize(gl, w, h, 
 				function() {
 					// Start the main loop
+					document.getElementById("WebAudio").play();
 					kdb.loop(main);
 				});
 		}
@@ -37,6 +38,7 @@ var initialize = function(gl, w, h, onInitialized) {
 
 	// TODO: initialize effects here
 	camera.initialize(gl);
+	roller.initialize(gl);
 
 
 	quad = geometry.quad(1);
@@ -67,4 +69,5 @@ var main = function(gl, time, dt) {
 	// TODO: run the effects here
 
 	camera.update(gl, time, dt);
+	roller.update(gl, time, dt);
 };
