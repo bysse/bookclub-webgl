@@ -77,7 +77,7 @@
 	uniform vec2 uMix;
 
 	const float PI=3.1415926;
-	const vec2 iResolution = vec2(20., 20.);
+	const vec2 iResolution = vec2(80., 80.);
  
 	void main() {
 		float bt = uTime*(85./60.);
@@ -92,18 +92,18 @@
 		p += sin(s.z*5. + t*.4 - 1.);
 		p += sin(s + t);
 		p += sin(dot(uv, uv) + t);	
-		
+	
 	    vec3 plasma = .5 + .5 * sin(PI * (p + vec3(0.0, 0.5, 1.0)));
 
-	    vec2 grid = mod(fragPosition.xz*.5 + vec2(0., .5), vec2(1.));
+	    vec2 grid = mod(fragPosition.xz*.5, vec2(1.));
 		float c = min(
-			smoothstep(1., .9, abs(grid.x)),
-			smoothstep(1., .9, abs(grid.y))
+			smoothstep(0., .05, abs(grid.x-.5)),
+			smoothstep(0., .05, abs(grid.y-.5))
 		);
 		vec3 shader = vec3(c);
 		vec3 bw = vec3((plasma.x+plasma.y+plasma.z)/3.);
 		
-		vec3 color = mix(shader, mix(bw, plasma, uMix.y), uMix.x);
+		vec3 color = mix(shader, mix(bw, plasma, uMix.y), .9*uMix.x);
 		
 	    gl_FragColor = vec4(color, 1);
 	}
@@ -120,6 +120,8 @@
 <script type="text/javascript" src="js_vendor/cuon-utils.js"></script>
 
 <script type="text/javascript" src="js_vendor/cuon-matrix.js"></script>
+
+<script type="text/javascript" src="js_vendor/simplex-noise.min.js"></script>
 
 <script type="text/javascript" src="js/camera.js"></script>
 

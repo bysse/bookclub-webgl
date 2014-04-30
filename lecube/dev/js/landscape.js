@@ -1,29 +1,57 @@
 var landscape = function() {
-	var W = 20;
-	var H = 40;
+	var W = 160;
+	var H = 400;
 
 	var buffer, shader;
 
 	var initialize = function(gl) {
 		var vertices=[];
+
+    	var simplex = new SimplexNoise(new Alea(2));
+
+		var fbm = function(x, y) {
+			var value = 0;
+
+			value += Math.abs(1.00 * simplex.noise2D(0.01*x, 0.01*y));
+			value += 0.50 * simplex.noise2D(0.02*x, 0.02*y);
+			value += 0.25 * simplex.noise2D(0.04*x, 0.04*y);
+			value += 0.12 * simplex.noise2D(0.08*x, 0.08*y);
+
+			return value * 5;
+		};
 		
 		var push = function(x, y) {
+			var xlimit = Math.max(0, x*x/4000);
+			var ylimit = Math.max(0, y*y/80000 - .5);
+			var scale = xlimit + ylimit;
+
+
 			vertices.push(y);
-			vertices.push(0);
+			vertices.push(fbm(x, y)*scale);
 			vertices.push(x);
 		};
 
 		var scale = 2;
 		for (var y=0;y<H;y++) {
+			var reverse = (y & 1);
 			for (var x=0;x<W;x++) {
-				var px = scale * (x - Math.floor(W/2));
-				var py = scale * (y - Math.floor(H/2));
+				var ax = reverse ? W-x-1 : x;
+				var ay = y;
+
+				var px = scale * (ax - Math.floor(W/2));
+				var py = scale * (ay - Math.floor(H/2));
 				var py1 = py + scale;
+
+
+				if (y > 0 && (y&1) == 0 && x == 0) {
+					push(px, py);
+				}
 
 				push(px, py);
 				push(px, py1);
-				if ((y&1) == 0 &&  x + 1 == W || (y&1) == 1 && x == 0) {
-					push(px, py1);
+				
+				if ((y&1) == 1 && x + 1 == W) {
+					push(px, py);
 				}
 			}
 		}
@@ -44,6 +72,9 @@ var landscape = function() {
 		var view = camera.view();
 		var model = new Matrix4();
 
+		var plasma = sync.fadein(time, 32, 2);
+		var desaturate = sync.fadein(time, 64, 2);
+
 		shader.use();
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
 		gl.enableVertexAttribArray(shader.a.vertex);
@@ -54,7 +85,7 @@ var landscape = function() {
 		gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
 
 		gl.uniform1f(shader.u.uTime, time);
-		gl.uniform2f(shader.u.uMix, .5, .5);
+		gl.uniform2f(shader.u.uMix, plasma, desaturate);
 		gl.uniform3f(shader.u.uColor, 1, 0, 1);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.elements);

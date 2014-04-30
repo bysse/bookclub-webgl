@@ -25,6 +25,7 @@ var kdb = function() {
 					break;
 				case 27:
 					togglePause();
+					document.getElementById("WebAudio").pause();
 					break;
 				case 37:
 					startTime += 2;

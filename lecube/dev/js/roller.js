@@ -2,13 +2,20 @@ var roller = function() {
 	var cube, shader;
 	var model = new Matrix4();
 
-	var firstCube = [0,1,0];
-	var CUBE_COUNT = 100;
+	var firstCube = [-100,1,0];
+	var CUBE_COUNT = 60;
 	var cubes = [];
+	var lecube = [];
+
+	var pattern = 	"#...###...###.#.#.###.###" +
+					"#...#.....#...#.#.#.#.#.." +
+					"#...##....#...#.#.###.##." +
+					"#...#.....#...#.#.#.#.#.." +
+					"###.###...###.###.###.###";
 
 	var edgeDistance = Math.sqrt(2)-1;
 	var roll = function(matrix, alpha) {
-		var x = Math.cos(3.1415*alpha);
+		var x = -2*alpha; 
 		var y = Math.sin(3.1415*alpha) * edgeDistance;
 
 		matrix.setIdentity();
@@ -29,14 +36,43 @@ var roller = function() {
 		shader.uniform('uModel');
 		shader.uniform('uColor');
 
-		cubes.push(firstCube);
+		var random = new Alea(3);
 
-		for (var i=1;i<CUBE_COUNT;i++) {
-			var x = -2 * (10 + i); //Math.floor(2 + Math.random() * 10);
-			var y =  1;
-			var z =  2 * Math.floor((Math.random()-.5) * 20); //Math.floor(i - CUBE_COUNT/2);
+		var offset = [-250, 1, 0];
+		for (var i=pattern.length-1;i>=0;i--) {
+			if (pattern.charAt(i) == '.') {
+				continue;
+			}
+
+			var px = (i % 25);
+			var py = parseInt(i / 25);
+
+			var x = offset[0] + 2 * px;
+			var y = offset[1];
+			var z = offset[2] + 2 * py;
+
+			lecube.push([x, y, z]);
+		}
+
+		var dx = {}
+		for (var i=0;i<CUBE_COUNT;i++) {
+			var z = lecube[i][2];
+			if (dx[z] === undefined) {
+				dx[z] = 0;
+			}
+			dx[z] += Math.floor(random()*4 + 1);
+
+
+			var x = lecube[i][0] - 2*dx[z];
+			var y = lecube[i][1];		
+
+			lecube[i][0] += 180;	
 
 			cubes.push([x,y,z]);
+
+			if (i == 0) {
+				firstCube = cubes[0];
+			}
 		}
 	};
 
@@ -46,9 +82,9 @@ var roller = function() {
 		var step = sync.step(t, 0);
 		var alpha = step*sync.unit(t, .5);		
 		var dx = step * Math.floor(sync.tounit(t)*2) * 2;	
-		var dxfract = Math.cos(3.1415*alpha);	
+		var dxfract = 2*alpha; 
 
-		var c = sync.fadein(t, -.5, .5) * .5;
+		var c = sync.interval(time, 4, 4, 62, 2) * .5;
 		var color = [c,0,0];
 
 
@@ -68,11 +104,23 @@ var roller = function() {
 
 		for (var i=0;i<CUBE_COUNT;i++) {
 			var p = cubes[i];
-			if (i == 0) {
-				firstCube = [p[0], p[1], p[2]];
+
+			if (lecube[i][0] <= p[0] + dx) {
+				p = lecube[i];
+				m.setTranslate(p[0], p[1], p[2]);
+
+				if (i == 30) {
+					firstCube = [p[0], p[1], p[2]];
+				}					
+			} else {
+				m.setTranslate(p[0] + dx, p[1], p[2]);
+				m.concat(model);			
+
+				if (i == 30) {
+					firstCube = [p[0] + dx + dxfract, p[1], p[2]];
+				}	
 			}
-			m.setTranslate(p[0] + dx, p[1], p[2]);
-			m.concat(model);
+
 		
 			gl.uniformMatrix4fv(shader.u.uModel, false, m.elements);		
 

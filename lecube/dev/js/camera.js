@@ -29,7 +29,6 @@ var camera = function() {
 		eyeY = 4 + 8*sync.fadein(time, 0, 8);
 		eyeZ = centerZ + Math.cos(unit*.25)*radius;
 
-
 		view.setLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);
 	};
 
