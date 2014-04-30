@@ -39,7 +39,7 @@ var initialize = function(gl, w, h, onInitialized) {
 	// TODO: initialize effects here
 	camera.initialize(gl);
 	roller.initialize(gl);
-
+	landscape.initialize(gl);
 
 	quad = geometry.quad(1);
  
@@ -69,5 +69,6 @@ var main = function(gl, time, dt) {
 	// TODO: run the effects here
 
 	camera.update(gl, time, dt);
+	landscape.update(gl, time, dt);
 	roller.update(gl, time, dt);
 };

@@ -8,11 +8,11 @@ var roller = function() {
 
 	var edgeDistance = Math.sqrt(2)-1;
 	var roll = function(matrix, alpha) {
-		var x = alpha;
+		var x = Math.cos(3.1415*alpha);
 		var y = Math.sin(3.1415*alpha) * edgeDistance;
 
 		matrix.setIdentity();
-		matrix.translate(x, y, 0);
+		matrix.translate(-x, y, 0);
 		matrix.rotate(-90*alpha, 0, 0, 1);
 
 		return matrix;
@@ -22,11 +22,12 @@ var roller = function() {
 		gl.disable(gl.CULL_FACE);
 
 		cube = geometry.cube(1);
-		shader = new kdb.Program('v_transform', 'f_transform');
+		shader = new kdb.Program('v_solid', 'f_solid');
 		shader.attribute('vertex');
 		shader.uniform('uProjection');
 		shader.uniform('uView');
 		shader.uniform('uModel');
+		shader.uniform('uColor');
 
 		cubes.push(firstCube);
 
@@ -44,8 +45,12 @@ var roller = function() {
 
 		var step = sync.step(t, 0);
 		var alpha = step*sync.unit(t, .5);		
-		var dx = step * Math.floor(sync.tounit(t)*2);		
-		
+		var dx = step * Math.floor(sync.tounit(t)*2) * 2;	
+		var dxfract = Math.cos(3.1415*alpha);	
+
+		var c = sync.fadein(t, -.5, .5) * .5;
+		var color = [c,0,0];
+
 
 		var projection = camera.projection();
 		var view = camera.view();
@@ -55,6 +60,7 @@ var roller = function() {
 
 		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
 		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);		
+		gl.uniform3f(shader.u.uColor, color[0], color[1], color[2]);
 
 		roll(model, alpha);
 				
@@ -63,7 +69,7 @@ var roller = function() {
 		for (var i=0;i<CUBE_COUNT;i++) {
 			var p = cubes[i];
 			if (i == 0) {
-				firstCube = [p[0] + dx + alpha, p[1], p[2]];
+				firstCube = [p[0], p[1], p[2]];
 			}
 			m.setTranslate(p[0] + dx, p[1], p[2]);
 			m.concat(model);

@@ -339,7 +339,6 @@ var geometry = function() {
 		};		
 	};
 
-
 	return {
 		quad : quad,
 		cube : cube

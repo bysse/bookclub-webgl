@@ -43,33 +43,70 @@
 	} 
 </script>
 
-<script id="v_transform" type="x-shader/x-vertex">
+<script id="v_solid" type="x-shader/x-vertex">
  	attribute vec3 vertex;
 
  	uniform mat4 uProjection;
  	uniform mat4 uView;
  	uniform mat4 uModel;
 
-	varying vec2 fragPosition;  
+	varying vec3 fragPosition;  
 	void main(void) {
-		fragPosition = vertex.xy;
+		fragPosition = vertex;
 		mat4 modelView = uView * uModel;
 		// normal = modelView * inputNormal
     	gl_Position = uProjection * modelView * vec4(vertex, 1.0);
   	}  
 </script>
 
-<script id="f_transform" type="x-shader/x-fragment">
+<script id="f_solid" type="x-shader/x-fragment">
 	precision mediump float;
-	varying vec2 fragPosition;  
+	varying vec3 fragPosition;  
+	uniform vec3 uColor;
 	void main(void) {								
-		vec3 colorA = vec3(0.10, 0.10, 0.10);
-		vec3 colorB = vec3(0.80, 0.80, 0.80);		
-		float dist = length(fragPosition);	
-		vec3 color = mix(colorB, colorA, dist*.5);		
-
+		vec3 color = uColor + .1*length(fragPosition);
 		gl_FragColor = vec4(color, 1.0);		
 	} 
+</script>
+
+<script id="f_plasma" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec3 fragPosition;  
+
+	uniform float uTime;
+	uniform vec2 uMix;
+
+	const float PI=3.1415926;
+	const vec2 iResolution = vec2(20., 20.);
+ 
+	void main() {
+		float bt = uTime*(85./60.);
+		float t = floor(bt) + pow(fract(bt), 3.);		
+		
+		vec2 uv = (fragPosition.xz / iResolution.xy);	
+		vec3 s = vec3(uv, uv.x*uv.y);
+		vec3 p = vec3(0.);
+		
+		p += sin(s.x*3. + t*.7 + 8.);
+		p += sin(s.y*2. + t*.3 + 5.);
+		p += sin(s.z*5. + t*.4 - 1.);
+		p += sin(s + t);
+		p += sin(dot(uv, uv) + t);	
+		
+	    vec3 plasma = .5 + .5 * sin(PI * (p + vec3(0.0, 0.5, 1.0)));
+
+	    vec2 grid = mod(fragPosition.xz*.5 + vec2(0., .5), vec2(1.));
+		float c = min(
+			smoothstep(1., .9, abs(grid.x)),
+			smoothstep(1., .9, abs(grid.y))
+		);
+		vec3 shader = vec3(c);
+		vec3 bw = vec3((plasma.x+plasma.y+plasma.z)/3.);
+		
+		vec3 color = mix(shader, mix(bw, plasma, uMix.y), uMix.x);
+		
+	    gl_FragColor = vec4(color, 1);
+	}
 </script>
 
 	
@@ -87,6 +124,8 @@
 <script type="text/javascript" src="js/camera.js"></script>
 
 <script type="text/javascript" src="js/roller.js"></script>
+
+<script type="text/javascript" src="js/landscape.js"></script>
 
 <script type="text/javascript" src="js/kdb.js"></script>
 
