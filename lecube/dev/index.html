@@ -65,8 +65,18 @@
 	uniform vec3 uColor;
 	void main(void) {								
 		vec3 color = uColor + .1*length(fragPosition);
-		gl_FragColor = vec4(color, 1.0);		
-	} 
+		gl_FragColor = vec4(color, 1.0);
+	}
+</script>
+
+<script id="f_text" type="x-shader/x-fragment">
+	precision mediump float;
+	varying vec3 fragPosition;
+	uniform vec3 uColor;
+	void main(void) {
+		//vec3 color = uColor + .1*length(fragPosition);
+		gl_FragColor = vec4(uColor, 1.0);
+	}
 </script>
 
 <script id="f_plasma" type="x-shader/x-fragment">

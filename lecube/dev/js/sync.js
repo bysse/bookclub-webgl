@@ -1,9 +1,16 @@
 var sync = function() {
 	var units = 85.0 / 60.0;
 
+	var sixteenPart = units / 8;
+
+	// each unit is two quarter notes
 	var tounit = function(time) { return time / units; };
 
 	var totime = function(unit) { return unit * units; };
+
+	var get16partIndex = function(time) {
+		return Math.floor(time / sixteenPart) % 16;
+	}
 
 	var init = function(u) {
 		units = u;
@@ -49,6 +56,7 @@ var sync = function() {
 		unit : unit,
 		tounit : tounit,
 		totime : totime,
+		get16partIndex : get16partIndex,
 		step : step,
 		smoothstep : smoothstep
 	};

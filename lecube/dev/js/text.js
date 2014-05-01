@@ -54,7 +54,7 @@ var text = function() {
 	var initialize = function(gl) {
 		test = create("LE CUBE");
 
-		shader = new kdb.Program('v_solid', 'f_solid');
+		shader = new kdb.Program('v_solid', 'f_text');
 		shader.attribute('vertex');
 		shader.uniform('uProjection');
 		shader.uniform('uView');
@@ -67,17 +67,36 @@ var text = function() {
 
 	var model = new Matrix4();	
 	var update = function(gl, time, dt) {
-		var projection = camera.projection();
-		var view = camera.view();
+		var unit = sync.tounit(time);
+		if (unit < 16 || unit > 20) {
+			return;
+		}
+		var index = sync.get16partIndex(time);
+		if (index == 2 ||
+				index == 3 ||
+				index == 7 ||
+				index == 8 ||
+				index == 10 ||
+				index == 11 ||
+				index == 13 ||
+				index == 14) {
 
-		shader.use();
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
-		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);		
-		gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);			
-		gl.uniform3f(shader.u.uColor, 0, 1, 0);
 
-		test.bind(gl, shader.a.vertex);		
-		test.draw(gl);		
+			var projection = camera.projection();
+			var view = camera.view();
+
+			model.setTranslate(-225.0, 32.0, 17.0);
+			model.rotate(90, 0, 1, 0);
+
+			shader.use();
+			gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
+			gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
+			gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
+			gl.uniform3f(shader.u.uColor, 0, 0.9, 0);
+
+			test.bind(gl, shader.a.vertex);
+			test.draw(gl);
+		}
 	};
 
 	return {
