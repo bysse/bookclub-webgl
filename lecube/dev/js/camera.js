@@ -90,16 +90,16 @@ var camera = function() {
 			centerX = eyeX - 2;
 			centerY = eyeY - 2;
 			centerZ = eyeZ;
-		} else if (unit < 44) {
+		} else if (unit < 60) {
 			var t = time - sync.totime(32);
 			centerX = -100;
 			centerY = 0;
 			centerZ = 5;
 
 			var radius = 10 + 10*sync.fadein(t, 0, 8) ;
-			var angle = t*.25 + 3;
+			var angle = t*.1 + 3;
 			eyeX = centerX + Math.sin(angle)*radius;
-			eyeY = 5 + 8*sync.fadein(t, 0, 8);
+			eyeY = 8 + 16*sync.fadein(t, 0, 16);
 			eyeZ = centerZ + Math.cos(angle)*radius;	
 		} else {			
 			centerX = 0;
