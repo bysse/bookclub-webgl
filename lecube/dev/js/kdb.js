@@ -23,9 +23,17 @@ var kdb = function() {
 				case 32:
 					showTime = true;
 					break;
+				case 77:
+					document.getElementById("WebAudio").pause();
+					break;
 				case 27:
 					togglePause();
-					document.getElementById("WebAudio").pause();
+					var audio = document.getElementById("WebAudio");
+					if (audio.paused) {
+						audio.play();
+					} else {
+						audio.pause();
+					}
 					break;
 				case 37:
 					startTime += 2;

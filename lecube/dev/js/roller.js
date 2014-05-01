@@ -80,8 +80,11 @@ var roller = function() {
 		var t = time - sync.totime(7.5);
 
 		var step = sync.step(t, 0);
-		var alpha = step*sync.unit(t, .5);		
-		var dx = step * Math.floor(sync.tounit(t)*2) * 2;	
+
+		var T = t*2.*60./85.;
+		var alpha = step*(T % 1);
+
+		var dx = step * Math.floor(sync.tounit(2*t)) * 2;	
 		var dxfract = 2*alpha; 
 
 		var c = sync.interval(time, 4, 4, 62, 2) * .5;
@@ -98,7 +101,7 @@ var roller = function() {
 		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);		
 		gl.uniform3f(shader.u.uColor, color[0], color[1], color[2]);
 
-		roll(model, alpha);
+		roll(model, clamp(alpha*1.2, 0, 1));
 				
 		var m = new Matrix4();
 

@@ -76,6 +76,18 @@
 	uniform float uTime;
 	uniform vec2 uMix;
 
+	float hash( float n ) { return fract(sin(n)*43758.5453); }
+
+	float noise( in vec2 x ) {
+	    vec2 p = floor(x);
+	    vec2 f = fract(x);
+
+	    f = f*f*(3.0-2.0*f);
+	    float n = p.x + p.y*57.0;
+	    return mix(mix( hash(n+  0.0), hash(n+  1.0),f.x),
+	                   mix( hash(n+ 57.0), hash(n+ 58.0),f.x),f.y);
+	}
+
 	const float PI=3.1415926;
 	const vec2 iResolution = vec2(80., 80.);
  
@@ -100,7 +112,8 @@
 			smoothstep(0., .05, abs(grid.x-.5)),
 			smoothstep(0., .05, abs(grid.y-.5))
 		);
-		vec3 shader = vec3(c);
+		float c2 = 1. - .25*noise(floor(.25*fragPosition.xz + .25));
+		vec3 shader = vec3(c * c2);
 		vec3 bw = vec3((plasma.x+plasma.y+plasma.z)/3.);
 		
 		vec3 color = mix(shader, mix(bw, plasma, uMix.y), .9*uMix.x);
@@ -134,6 +147,10 @@
 <script type="text/javascript" src="js/main.js"></script>
 
 <script type="text/javascript" src="js/sync.js"></script>
+
+<script type="text/javascript" src="js/text.js"></script>
+
+<script type="text/javascript" src="js/utils.js"></script>
 <!-- endbuild -->
 </body>
 </html>

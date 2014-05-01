@@ -40,6 +40,7 @@ var initialize = function(gl, w, h, onInitialized) {
 	camera.initialize(gl);
 	roller.initialize(gl);
 	landscape.initialize(gl);
+	text.initialize(gl);
 
 	quad = geometry.quad(1);
  
@@ -71,4 +72,5 @@ var main = function(gl, time, dt) {
 	camera.update(gl, time, dt);
 	landscape.update(gl, time, dt);
 	roller.update(gl, time, dt);
+	text.update(gl, time, dt);
 };

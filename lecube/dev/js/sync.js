@@ -1,5 +1,5 @@
 var sync = function() {
-	var units = 120.0 / 60.0;
+	var units = 85.0 / 60.0;
 
 	var tounit = function(time) { return time / units; };
 

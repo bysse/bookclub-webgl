@@ -1,6 +1,6 @@
 var landscape = function() {
-	var W = 160;
-	var H = 400;
+	var W = 80;
+	var H = 200;
 
 	var buffer, shader;
 
@@ -31,7 +31,7 @@ var landscape = function() {
 			vertices.push(x);
 		};
 
-		var scale = 2;
+		var scale = 4;
 		for (var y=0;y<H;y++) {
 			var reverse = (y & 1);
 			for (var x=0;x<W;x++) {
