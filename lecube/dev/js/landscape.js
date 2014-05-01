@@ -1,5 +1,5 @@
 var landscape = function() {
-	var W = 80;
+	var W = 100;
 	var H = 200;
 
 	var buffer, shader;
@@ -12,17 +12,17 @@ var landscape = function() {
 		var fbm = function(x, y) {
 			var value = 0;
 
-			value += Math.abs(1.00 * simplex.noise2D(0.01*x, 0.01*y));
-			value += 0.50 * simplex.noise2D(0.02*x, 0.02*y);
-			value += 0.25 * simplex.noise2D(0.04*x, 0.04*y);
-			value += 0.12 * simplex.noise2D(0.08*x, 0.08*y);
+			value += Math.abs(1.00 * simplex.noise2D(0.005*x, 0.005*y));
+			value += 0.50 * simplex.noise2D(0.01*x, 0.01*y);
+			value += 0.25 * simplex.noise2D(0.02*x, 0.02*y);
+			value += 0.12 * simplex.noise2D(0.04*x, 0.04*y);
 
 			return value * 5;
 		};
 		
 		var push = function(x, y) {
-			var xlimit = Math.max(0, x*x/4000);
-			var ylimit = Math.max(0, y*y/80000 - .5);
+			var xlimit = Math.max(0, x*x/6000 - .1);
+			var ylimit = Math.max(0, y*y/80000 - 1);
 			var scale = xlimit + ylimit;
 
 
@@ -31,7 +31,7 @@ var landscape = function() {
 			vertices.push(x);
 		};
 
-		var scale = 4;
+		var scale = 8;
 		for (var y=0;y<H;y++) {
 			var reverse = (y & 1);
 			for (var x=0;x<W;x++) {

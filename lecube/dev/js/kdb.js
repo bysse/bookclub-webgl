@@ -49,7 +49,8 @@ var kdb = function() {
 		});
 		
 		try {
-			gl = WebGLUtils.setupWebGL(canvas);
+			gl = WebGLUtils.setupWebGL(canvas);			
+			gl.getExtension('OES_standard_derivatives');
 			gl.viewport(0, 0, canvas.width, canvas.height);
 			console.log("KDB: viewport (" + width + ", " + height + ")");
 			return gl;

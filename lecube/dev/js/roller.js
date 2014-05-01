@@ -2,7 +2,6 @@ var roller = function() {
 	var cube, shader;
 	var model = new Matrix4();
 
-	var firstCube = [-100,1,0];
 	var CUBE_COUNT = 60;
 	var cubes = [];
 	var lecube = [];
@@ -36,7 +35,7 @@ var roller = function() {
 		shader.uniform('uModel');
 		shader.uniform('uColor');
 
-		var random = new Alea(3);
+		var random = new Alea(1);
 
 		var offset = [-250, 1, 0];
 		for (var i=pattern.length-1;i>=0;i--) {
@@ -54,26 +53,40 @@ var roller = function() {
 			lecube.push([x, y, z]);
 		}
 
-		var dx = {}
+		var occupied = {};
+		var last = null;
+		var current = null;
+		var lastZ = -1;
+		var delta = 0;
 		for (var i=0;i<CUBE_COUNT;i++) {
 			var z = lecube[i][2];
-			if (dx[z] === undefined) {
-				dx[z] = 0;
+
+			if (lastZ != z) {
+				lastZ = z;
+				last = current;
+				current = [];				
+				delta = Math.floor(random()*4);
 			}
-			dx[z] += Math.floor(random()*4 + 1);
 
+			delta += 1 + Math.floor(random()*4);
 
-			var x = lecube[i][0] - 2*dx[z];
+			if (last != null) {
+				for (var j=0;j<last.length;j++) {
+					if (lecube[i][0] - 2*delta === last[j]) {
+						delta++;			
+						break;
+					}
+				}
+			}
+			current.push(lecube[i][0] - 2*delta);
+
+			var x = lecube[i][0] - 2*delta;
 			var y = lecube[i][1];		
 
 			lecube[i][0] += 180;	
 
 			cubes.push([x,y,z]);
-
-			if (i == 0) {
-				firstCube = cubes[0];
-			}
-		}
+		}		
 	};
 
 	var update = function(gl, time, dt) {
@@ -111,17 +124,9 @@ var roller = function() {
 			if (lecube[i][0] <= p[0] + dx) {
 				p = lecube[i];
 				m.setTranslate(p[0], p[1], p[2]);
-
-				if (i == 30) {
-					firstCube = [p[0], p[1], p[2]];
-				}					
 			} else {
 				m.setTranslate(p[0] + dx, p[1], p[2]);
 				m.concat(model);			
-
-				if (i == 30) {
-					firstCube = [p[0] + dx + dxfract, p[1], p[2]];
-				}	
 			}
 
 		
@@ -134,7 +139,6 @@ var roller = function() {
 
 	return {
 		initialize : initialize,
-		update : update,
-		first : function() { return firstCube; }
+		update : update
 	};
 }();
