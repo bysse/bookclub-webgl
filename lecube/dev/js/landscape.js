@@ -71,8 +71,8 @@ var landscape = function() {
 		var view = camera.view();
 		var model = new Matrix4();
 
-		var plasma = sync.interval(time, 32, 2, 88, 2);
-		var desaturate = sync.interval(time, 64, 2, 86, 2);
+		var plasma = sync.interval(time, 32, 2, 84, 4);
+		var desaturate = sync.interval(time, 64, 2, 80, 4);
 
 		shader.use();
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
