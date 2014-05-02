@@ -106,16 +106,17 @@ var camera = function() {
 			eyeY = 8 + 16 * sync.fadein(t, 0, 8) - tc*4 ;
 			eyeZ = centerZ + Math.cos(angle)*radius - tc*4;	
 		} else {			
-			centerX = 0;
-			centerY = 0;
-			centerZ = 0;
+			var t = time - sync.totime(72);
 
-			var unit = sync.tounit(time);
-			var radius = 2 + 10*sync.fadein(time, 0, 8) ;
+			centerX = -60;
+			centerY = 1;
+			centerZ = 4;
 
-			eyeX = centerX + Math.sin(unit*.25)*radius;
-			eyeY = 4 + 8*sync.fadein(time, 0, 8);
-			eyeZ = centerZ + Math.cos(unit*.25)*radius;
+			var radius = 40 + ease.inOut(t, 0, 30, sync.totime(96-72));
+
+			eyeX = centerX + Math.sin(t*.25)*radius;
+			eyeY = 15 + ease.inOut(t, 0, 35, sync.totime(96-72));
+			eyeZ = centerZ + Math.cos(t*.25)*radius;
 		}
 
 		view.setLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);

@@ -41,6 +41,7 @@ var initialize = function(gl, w, h, onInitialized) {
 	roller.initialize(gl);
 	landscape.initialize(gl);
 	text.initialize(gl);
+	fade.initialize(gl);
 
 	quad = geometry.quad(1);
  
@@ -53,9 +54,14 @@ var initialize = function(gl, w, h, onInitialized) {
 
 
 var main = function(gl, time, dt) {	
+	var end = 136;
 	// cycle the background color over 2 beats
 	var u = sync.unit(time, 2);
 	var c = (Math.sin(u*3.1415) + 1.0) * 0.1;
+
+	if (time >= end) {
+		c = 1;
+	}
 	gl.clearColor(c, c, c, 1);	
 
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -68,9 +74,13 @@ var main = function(gl, time, dt) {
 	//gl.clear(gl.DEPTH_BUFFER_BIT);
 
 	// TODO: run the effects here
-
+	if (time >= end) {
+		kdb.togglePause();
+		return;
+	}
 	camera.update(gl, time, dt);
 	landscape.update(gl, time, dt);
 	roller.update(gl, time, dt);
 	text.update(gl, time, dt);
+	fade.update(gl, time, dt);
 };

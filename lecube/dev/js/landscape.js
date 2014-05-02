@@ -66,14 +66,13 @@ var landscape = function() {
 		shader.uniform('uMix');
 	};
 
-
 	var update = function(gl, time, dt) {
 		var projection = camera.projection();
 		var view = camera.view();
 		var model = new Matrix4();
 
-		var plasma = sync.fadein(time, 32, 2);
-		var desaturate = sync.fadein(time, 64, 2);
+		var plasma = sync.interval(time, 32, 2, 88, 2);
+		var desaturate = sync.interval(time, 64, 2, 86, 2);
 
 		shader.use();
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);			
