@@ -57,14 +57,41 @@ var text = function() {
 	};
 
 	var shader;
-	var txtCubeIs, txtCubeSv, txtCubeFr, texts, curTxtIndex, hasNew16BeatHappened;
-
+	var textDisplayObjList, curTxtIndex, hasNew16BeatHappened;
 
 	var initialize = function(gl) {
-		txtCubeIs = create("TENINGURINN");
-		txtCubeSv = create("KUBEN");
-		txtCubeFr = create("LE CUBE");
-		texts = [txtCubeFr, txtCubeSv, txtCubeIs];
+		var wordList = [
+				"GEOMETRY",
+	            "DIMENSIONAL",
+	            "SOLID",
+	            "OBJECT",
+	            "BOUNDED",
+	            "SQUARE",
+	            "FACES",
+	            "SIDES",
+	            "VERTEX",
+	            "REGULAR",
+	            "HEXAHEDRON",
+	            "PLATONIC",
+	            "SOLIDS",
+	            "PARALLELEPIPED",
+	            "EQUILATERAL",
+	            "CUBOID",
+	            "RHOMBOHEDRON",
+	            "PRISM",
+	            "ORIENTATIONS",
+	            "TRIGONAL",
+	            "TRAPEZOHEDRON",
+	            "DUAL",
+	            "OCTAHEDRON",
+	            "CUBICAL",
+	            "OCTAHEDRAL",
+	            "FACETS",
+	            "SYMMETRY"];
+        textDisplayObjList = [];
+        for (var i = 0; i < wordList.length; i++) {
+			textDisplayObjList.push(create(wordList[i]));
+        }
 		curTxtIndex = 0;
 		curBeatIndex = -1;
 		hasNew16BeatHappened = false;
@@ -78,26 +105,19 @@ var text = function() {
 		gl.lineWidth(3);
 	};
 
-	var model = new Matrix4();	
+	var model = new Matrix4();
+
 	var update = function(gl, time, dt) {
 		var unit = sync.tounit(time);
-		if (unit < 16 || unit > 20) {
+		if (unit < 16 || unit >= 28) {
 			return;
 		}
+
 		var index = sync.get16partIndex(time);
 		if (hasNew16BeatHappened = curBeatIndex != index) {
 			curBeatIndex = index;
 		}
-		// keeping this for a while
-//		if ((index == 2 ||
-//				index == 3 ||
-//				index == 7 ||
-//				index == 8 ||
-//				index == 10 ||
-//				index == 11 ||
-//				index == 13 ||
-//				index == 14)
-//				&& hasNew16BeatHappened) {
+
 		if ((index == 1 ||
 				index == 3 ||
 				index == 5 ||
@@ -111,12 +131,20 @@ var text = function() {
 			var projection = camera.projection();
 			var view = camera.view();
 
-			var curText = texts[curTxtIndex % 3];
+			var curText = textDisplayObjList[curTxtIndex % textDisplayObjList.length];
 			curTxtIndex++;
 
-			var zOffset = 6.0;
-			model.setTranslate(-225.0, 32.0,  (curText.biggestXPos / 2) + zOffset);
-			model.rotate(90, 0, 1, 0);
+			if (unit < 20) {
+				model.setTranslate(-225.0, 32.0, (curText.biggestXPos / 2) + 6.0);
+                model.rotate(90, 0, 1, 0);
+			}
+			else if (unit < 24) {
+				model.setTranslate(-190.0 + (curText.biggestXPos / 2), 40.0, 40.0);
+                model.rotate(180, 0, 1, 0);
+			}
+			else if (unit < 28) {
+                model.setTranslate(-210.0 - (curText.biggestXPos / 2), 35.0, -40.0);
+            }
 
 			shader.use();
 			gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);

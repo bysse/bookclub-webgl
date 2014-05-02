@@ -71,7 +71,8 @@ var landscape = function() {
 		var view = camera.view();
 		var model = new Matrix4();
 
-		var plasma = sync.interval(time, 32, 2, 84, 4);
+		// make the plasma fade in with the fade-in of the synth (not in music right now, but will be)
+		var plasma = sync.interval(time, 28, 4, 84, 4);
 		var desaturate = sync.interval(time, 64, 2, 80, 4);
 
 		shader.use();
