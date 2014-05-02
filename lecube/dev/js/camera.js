@@ -90,17 +90,21 @@ var camera = function() {
 			centerX = eyeX - 2;
 			centerY = eyeY - 2;
 			centerZ = eyeZ;
-		} else if (unit < 60) {
+		} else if (unit < 72) {
 			var t = time - sync.totime(32);
-			centerX = -100;
-			centerY = 0;
-			centerZ = 5;
 
-			var radius = 10 + 10*sync.fadein(t, 0, 8) ;
-			var angle = t*.1 + 3;
-			eyeX = centerX + Math.sin(angle)*radius;
-			eyeY = 8 + 16*sync.fadein(t, 0, 16);
-			eyeZ = centerZ + Math.cos(angle)*radius;	
+			var tc = ease.inOut(time - sync.totime(54), 0, 1, sync.totime(10));
+
+			centerX = -100 + ease.inOut(time - sync.totime(44), 0, 24, sync.totime(20));
+			centerY = 1;
+			centerZ = 4;
+
+			var radius = 15 + 10*sync.fadein(t, 0, 8) - ease.inOut(time - sync.totime(62), 0, 10, sync.totime(6));
+
+			var angle = 3 + .1 * ease.inOut(t, 0, sync.totime(55-32), sync.totime(55-32));
+			eyeX = centerX + Math.sin(angle)*radius + tc * 2;
+			eyeY = 8 + 16 * sync.fadein(t, 0, 8) - tc*4 ;
+			eyeZ = centerZ + Math.cos(angle)*radius - tc*4;	
 		} else {			
 			centerX = 0;
 			centerY = 0;

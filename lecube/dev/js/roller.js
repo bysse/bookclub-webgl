@@ -68,7 +68,7 @@ var roller = function() {
 				delta = Math.floor(random()*4);
 			}
 
-			delta += 1 + Math.floor(random()*4);
+			delta += 1 + Math.floor(random()*3);
 
 			if (last != null) {
 				for (var j=0;j<last.length;j++) {
@@ -83,7 +83,7 @@ var roller = function() {
 			var x = lecube[i][0] - 2*delta;
 			var y = lecube[i][1];		
 
-			lecube[i][0] += 180;	
+			lecube[i][0] += 150;	
 
 			cubes.push([x,y,z]);
 		}		

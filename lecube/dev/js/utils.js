@@ -10,3 +10,23 @@ var fract = function(x) {
 var clamp = function(x, low, high) {
 	return Math.min(high, Math.max(low, x));
 };
+
+var ease = {
+	// t: current time, b: begInnIng value, c: change In value, d: duration	
+	in: function (t, b, c, d) {
+		if (t < 0) { return b; }
+		if (t > d) { return b + c; }
+		return c*(t/=d)*t*t + b;
+	},
+	out: function (t, b, c, d) {
+		if (t < 0) { return b; }
+		if (t > d) { return b + c; }
+		return c*((t=t/d-1)*t*t + 1) + b;
+	},
+	inOut: function (t, b, c, d) {
+		if (t < 0) { return b; }
+		if (t > d) { return b + c; }
+		if ((t/=d/2) < 1) return c/2*t*t*t + b;
+		return c/2*((t-=2)*t*t + 2) + b;
+	}
+};
