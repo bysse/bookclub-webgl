@@ -1,7 +1,5 @@
 var text = function() {
-	var rand = new Alea(20);
 	var coords = 'GIOMJL0AMOIG0IGMO0COMGI0OMGILJ0CBN0OMGIUS0AMGIO0GHN0GHTS0AMIKO0BN0MGHNHIO0MGIO0GIOMG0SGIOM0UIGMO0MGI0IGJLOM0BNO0GMOI0GJNLI0GMNHNOI0GOKMI0GMOIUS0GIMO'.split(0);
-
 
 	var decode = function(text) {
 		var biggestXPos = 0;
@@ -33,23 +31,8 @@ var text = function() {
 				if (text[i]==='I'||text[i]==='J') addLine(3,4);
 				if (text[i]==='F'||text[i]==='T') addLine(3,5);
 			}
-			if (text[i]==='-') addLine(9, 11);
 			caret += 3;			
 		}		
-
-		// reorder lines
-		var swap = function(a, b) {
-			var t = vertices[a];
-			vertices[a] = vertices[b];
-			vertices[b] = t;
-		};
-		var lines = vertices.length / (3*2);
-		for (var i=0;i<vertices.length;i+=6) {
-			var other = Math.floor(rand()*lines)*6;
-			for (var j=0;j<6;j++) {
-				swap(i+j, other+j);
-			}
-		}
 
 		return [vertices, biggestXPos];
 	};
@@ -79,29 +62,32 @@ var text = function() {
 	var initialize = function(gl) {
 		var wordList = [
 				"GEOMETRY",
+	            "DIMENSIONAL",
 	            "SOLID",
 	            "OBJECT",
 	            "BOUNDED",
 	            "SQUARE",
-				"SINGULAR",
-	            "FACES",           
-	            "CUBE",
+	            "FACES",
+	            "SIDES",
 	            "VERTEX",
 	            "REGULAR",
 	            "HEXAHEDRON",
 	            "PLATONIC",
+	            "SOLIDS",
+	            "PARALLELEPIPED",
+	            "EQUILATERAL",
 	            "CUBOID",
-	            "STRAIGHT",
+	            "RHOMBOHEDRON",
 	            "PRISM",
+	            "ORIENTATIONS",
 	            "TRIGONAL",
-	            "SYMMETRY",	            
-	            "ORDER",	            
-	            "PERPENDICULAR",
+	            "TRAPEZOHEDRON",
+	            "DUAL",
 	            "OCTAHEDRON",
 	            "CUBICAL",
-	            "LINE",
+	            "OCTAHEDRAL",
 	            "FACETS",
-	            "EQUILATERAL"];
+	            "SYMMETRY"];
         textDisplayObjList = [];
         for (var i = 0; i < wordList.length; i++) {
 			textDisplayObjList.push(create(wordList[i]));
@@ -122,59 +108,56 @@ var text = function() {
 	var model = new Matrix4();
 
 	var update = function(gl, time, dt) {
-		var projection = camera.projection();
-		var view = camera.view();
+		var unit = sync.tounit(time);
+		if (unit < 16 || unit >= 28) {
+			return;
+		}
 
-		shader.use();
-		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
-		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
+		var index = sync.get16partIndex(time);
+		if (hasNew16BeatHappened = curBeatIndex != index) {
+			curBeatIndex = index;
+		}
 
+		if ((index == 1 ||
+				index == 3 ||
+				index == 5 ||
+				index == 6 ||
+				index == 9 ||
+				index == 11 ||
+				index == 14 ||
+				index == 15)
+				&& hasNew16BeatHappened) {
 
-		// Make the colors cycle when the plasma shows
-		var a = sync.interval(time, 64, 2, 80, 4);
-		var t = .3 * sync.tounit(time * 20);
-		var red   = .4*(1-a) + a*(Math.sin(t + 0) * .5 + .5);
-		var green = .4*(1-a) + a*(Math.sin(t + 2) * .5 + .5);
-		var blue  = .4*(1-a) + a*(Math.sin(t + 4) * .5 + .5);
-		gl.uniform3f(shader.u.uColor, red, green, blue);
+			var projection = camera.projection();
+			var view = camera.view();
 
+			var curText = textDisplayObjList[curTxtIndex % textDisplayObjList.length];
+			curTxtIndex++;
 
-		var count = textDisplayObjList.length;
-		for (var i=0;i<count;i++) {
-			var alpha = i / count;
-
-			var scale = 3;
-
-			var x = 0;
-			var y = 60;
-			var z = 0;
-
-			model.setIdentity();		
-
-			if (i > count/2) {
-				x = 800 * (4 * (alpha - .5) - 1);
-				z = 250;				
-			} else {
-				x = 800 * (4 * (alpha) - 1);
-				z = -250;
+			if (unit < 20) {
+				model.setTranslate(-225.0, 32.0, (curText.biggestXPos / 2) + 6.0);
+                model.rotate(90, 0, 1, 0);
 			}
-
-			model.translate(x, y, z);
-			model.scale(scale, scale, scale);			
-			if (i > count/2) {
-				model.rotate(180, 0, 1, 0);
+			else if (unit < 24) {
+				model.setTranslate(-190.0 + (curText.biggestXPos / 2), 40.0, 40.0);
+                model.rotate(180, 0, 1, 0);
 			}
+			else if (unit < 28) {
+                model.setTranslate(-210.0 - (curText.biggestXPos / 2), 35.0, -40.0);
+            }
 
+			shader.use();
+			gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
+			gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
 			gl.uniformMatrix4fv(shader.u.uModel, false, model.elements);
+			gl.uniform3f(shader.u.uColor, 0, 0.9, 0);
 
-			var text = textDisplayObjList[i];
-			text.bind(gl, shader.a.vertex);
-			text.draw(gl);
-		}		
+			curText.bind(gl, shader.a.vertex);
+			curText.draw(gl);
+		}
 	};
 
 	return {
-		create : create, 
 		initialize : initialize,
 		update : update
 	};

@@ -91,6 +91,7 @@ var roller = function() {
 
 	var update = function(gl, time, dt) {
 		var t = time - sync.totime(7.5);
+		t += .1 * sync.step(time, 32);
 
 		var step = sync.step(t, 0);
 

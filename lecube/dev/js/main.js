@@ -42,6 +42,7 @@ var initialize = function(gl, w, h, onInitialized) {
 	landscape.initialize(gl);
 	text.initialize(gl);
 	fade.initialize(gl);
+	scroller.initialize(gl);
 
 	quad = geometry.quad(1);
  
@@ -82,5 +83,6 @@ var main = function(gl, time, dt) {
 	landscape.update(gl, time, dt);
 	roller.update(gl, time, dt);
 	text.update(gl, time, dt);
+	scroller.update(gl, time, dt);
 	fade.update(gl, time, dt);
 };

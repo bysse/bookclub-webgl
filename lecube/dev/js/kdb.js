@@ -5,6 +5,7 @@ var kdb = function() {
 	var updateCallback = null;
 	var startTime = 0;
 	var showTime = false;
+	var shaderMap = {};
 	
 	/**
 	 * Initialize WebGL and KDB.
@@ -248,11 +249,22 @@ var kdb = function() {
 	 * Creates a shader program.
 	 */
 	var Program = function(vertexShaderId, fragmentShaderId) {
-		var vertex = kdb.shader.compile(vertexShaderId);
-		var fragment = kdb.shader.compile(fragmentShaderId);
-		this.program = kdb.shader.link(vertex, fragment);
+		this.shaderid=vertexShaderId+fragmentShaderId;
 		this.a = {};
 		this.u = {};
+
+		if (shaderMap[this.shaderid] !== undefined) {
+			var cache = shaderMap[this.shaderid];
+			this.program = cache.program;
+		} else {
+			var vertex = kdb.shader.compile(vertexShaderId);
+			var fragment = kdb.shader.compile(fragmentShaderId);
+			this.program = kdb.shader.link(vertex, fragment);
+
+			shaderMap[this.shaderid] = {
+				program : this.program
+			};
+		}
 		
 		if (this.program === null) {
 			throw "Can't create Program<"+vertexShaderId+", "+fragmentShaderId+">";
@@ -263,7 +275,10 @@ var kdb = function() {
 	 * Start using the program.
 	 */
 	Program.prototype.use = function() {
-		gl.useProgram(this.program);
+		if (window.activeShader === undefined || window.activeShader !== this.shaderid) {
+			gl.useProgram(this.program);	
+		}
+		window.activeShader = this.shaderid;
 	};
 
 	/**
