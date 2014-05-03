@@ -9,13 +9,13 @@ var scroller = function() {
 	var initialize = function(gl) {
         texts = [
         	{
-        		text: "WARNING! THINKING OUTSIDE BOX MAY CAUSE PERMANENT BRAIN DAMAGE. SIDE EFFECTS MAY INCLUDE, BUT IS NOT LIMITED TO: ANXIETY, CONFUSION, NERVOUSNESS AND INSOMNIA",
+        		text: "WARNING! THINKING OUTSIDE THE BOX MAY CAUSE PERMANENT BRAIN DAMAGE. SIDE EFFECTS MAY INCLUDE, BUT IS NOT LIMITED TO: ANXIETY, CONFUSION, NERVOUSNESS AND INSOMNIA",
         		start: 0,
         		stop: sync.totime(8),
         		x: [1, -6],
         		y: [-.5, -.5],
         		scale: 0.01,
-        		color: [1, 0, 0]
+        		color: [.8, 0.2, 0.2]
         	}, {
         		text: "KLOVMAN: CODE",
         		start: sync.totime(2),
@@ -32,15 +32,99 @@ var scroller = function() {
         		text: "             LE CUBE",
         		start: sync.totime(6),
         		stop:  sync.totime(10),
-        		fadeTime: sync.totime(.5),
+        		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
-        	} , {
-        		text: "KING 2014",
+        	}, {
+        		text: "@KING 2014",
         		start: sync.totime(12),
-        		stop:  sync.totime(16),
+        		stop:  sync.totime(15),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, {
+        		text: "SPHERES ARE BORING",
+        		start: sync.totime(16),
+        		stop:  sync.totime(19),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, {
+        		text: "LINES ARE TOO THIN",
+        		start: sync.totime(20),
+        		stop:  sync.totime(23),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, {
+        		text: "CUBE IS THE NEW BLACK",
+        		start: sync.totime(24),
+        		stop:  sync.totime(27),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { // 8
+        		text: "WE ARE CUBING",
+        		start: sync.totime(72),
+        		stop:  sync.totime(74),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "PANDA DESIGN",
+        		start: sync.totime(74),
+        		stop:  sync.totime(75),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { // 10
+        		text: "ZWORP",
+        		start: sync.totime(75),
+        		stop:  sync.totime(76),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "DERIL",
+        		start: sync.totime(76),
+        		stop:  sync.totime(77),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { // 12
+        		text: "PILGRIM",
+        		start: sync.totime(77),
+        		stop:  sync.totime(78),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "JONAS + DAVID",
+        		start: sync.totime(78),
+        		stop:  sync.totime(79),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "RAHM",
+        		start: sync.totime(79),
+        		stop:  sync.totime(80),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "PLACEHOLDER",
+        		start: sync.totime(80),
+        		stop:  sync.totime(81),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "PLACEHOLDER",
+        		start: sync.totime(81),
+        		stop:  sync.totime(82),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "AMIGA",
+        		start: sync.totime(82),
+        		stop:  sync.totime(84),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "YOU",
+        		start: sync.totime(84),
+        		stop:  sync.totime(86),
         		fadeTime: sync.totime(.5),
         		color: [1, 1, 1]
-        	}         	
+        	}
         ];
 
         for (var i = 0; i < texts.length; i++) {
@@ -103,7 +187,7 @@ var scroller = function() {
 
 	var fadein = function(gl, time, index) {
 		var detail = texts[index];
-		if (time < detail.start || detail.stop < time) {
+		if (detail === undefined || time < detail.start || detail.stop < time) {
 			return;
 		}
 		var alpha = (time - detail.start) / (detail.stop - detail.start);
@@ -133,16 +217,32 @@ var scroller = function() {
 		gl.uniformMatrix4fv(shader.u.uProjection, false, projection.elements);
 		gl.uniformMatrix4fv(shader.u.uView, false, view.elements);
 
-		gl.lineWidth(1);
-		var warning = time - sync.totime(8)
-		scroll(gl, warning % sync.totime(8), 0, time) ;
-
 		gl.lineWidth(2);
+		if (sync.tounit(time) < 88) {
+			var warning = time - sync.totime(8)
+			scroll(gl, warning % sync.totime(8), 0, time) ;
+		}
+
 		fadein(gl, time, 1);
 		fadein(gl, time, 2);
-
 		fadein(gl, time, 3);
 		fadein(gl, time, 4);
+
+		fadein(gl, time, 5);
+		fadein(gl, time, 6);
+		fadein(gl, time, 7);
+
+		fadein(gl, time, 8);
+		fadein(gl, time, 9);
+		fadein(gl, time, 10);
+		fadein(gl, time, 11);
+		fadein(gl, time, 12);
+		fadein(gl, time, 13);
+		fadein(gl, time, 14);
+		fadein(gl, time, 15);
+		fadein(gl, time, 16);
+		fadein(gl, time, 17);
+		fadein(gl, time, 18);		
 	};
 
 	return {

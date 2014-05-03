@@ -1,6 +1,6 @@
 var text = function() {
 	var rand = new Alea(20);
-	var coords = 'GIOMJL0AMOIG0IGMO0COMGI0OMGILJ0CBN0OMGIUS0AMGIO0GHN0GHTS0AMIKO0BN0MGHNHIO0MGIO0GIOMG0SGIOM0UIGMO0MGI0IGJLOM0BNO0GMOI0GJNLI0GMNHNOI0GOKMI0GMOIUS0GIMO0GIOMG0IO0GILJMO0GILJLOM0GJLIO0'.split(0);
+	var coords = 'GIOMJL0AMOIG0IGMO0COMGI0OMGILJ0CBN0OMGIUS0AMGIO0GHN0GHTS0AMIKO0BN0MGHNHIO0MGIO0GIOMG0SGIOM0UIGMO0MGI0IGJLOM0BNO0GMOI0GJNLI0GMNHNOI0GOKMI0GMOIUS0GIMO0GIOMG0IO0GILJMO0GILJLOM0GJLIO0IGJLOM0IGMOLJ0IHKLFDMO'.split(0);
 
 
 	var decode = function(text) {
@@ -31,6 +31,10 @@ var text = function() {
 			if (text[i] == '2') index = 28;
 			if (text[i] == '3') index = 29;
 			if (text[i] == '4') index = 30;
+			if (text[i] == '5') index = 31;
+			if (text[i] == '6') index = 32;
+
+			if (text[i] == '@') index = 33;
 
 			var P = coords[index];
 			if (P) {
@@ -116,7 +120,7 @@ var text = function() {
 	            "CONFORMITY",
 	            "SQUARE",
 				"SINGULAR",
-	            "FACES",           
+	            "6 FACES",           
 	            "CUBE",
 	            "VERTEX",
 	            "REGULAR",
