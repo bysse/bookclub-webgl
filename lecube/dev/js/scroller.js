@@ -107,7 +107,7 @@ var scroller = function() {
         		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
         	}, { 
-        		text: "PLACEHOLDER",
+        		text: "ELIN",
         		start: sync.totime(81),
         		stop:  sync.totime(82),
         		fadeTime: sync.totime(.25),
