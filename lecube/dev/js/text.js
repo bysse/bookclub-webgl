@@ -1,6 +1,6 @@
 var text = function() {
 	var rand = new Alea(20);
-	var coords = 'GIOMJL0AMOIG0IGMO0COMGI0OMGILJ0CBN0OMGIUS0AMGIO0GHN0GHTS0AMIKO0BN0MGHNHIO0MGIO0GIOMG0SGIOM0UIGMO0MGI0IGJLOM0BNO0GMOI0GJNLI0GMNHNOI0GOKMI0GMOIUS0GIMO'.split(0);
+	var coords = 'GIOMJL0AMOIG0IGMO0COMGI0OMGILJ0CBN0OMGIUS0AMGIO0GHN0GHTS0AMIKO0BN0MGHNHIO0MGIO0GIOMG0SGIOM0UIGMO0MGI0IGJLOM0BNO0GMOI0GJNLI0GMNHNOI0GOKMI0GMOIUS0GIMO0GIOMG0IO0GILJMO0GILJLOM0GJLIO0'.split(0);
 
 
 	var decode = function(text) {
@@ -25,7 +25,14 @@ var text = function() {
 		}
 
 		for (var i=0;i<text.length;i++) {
-			var P = coords[text.charCodeAt(i)-65];
+			var index = text.charCodeAt(i)-65;
+			if (text[i] == '0') index = 26;
+			if (text[i] == '1') index = 27;
+			if (text[i] == '2') index = 28;
+			if (text[i] == '3') index = 29;
+			if (text[i] == '4') index = 30;
+
+			var P = coords[index];
 			if (P) {
 				for (var j=1;j<P.length;j++) {
 					addLine(P.charCodeAt(j-1)-65,P.charCodeAt(j)-65);
@@ -34,6 +41,27 @@ var text = function() {
 				if (text[i]==='F'||text[i]==='T') addLine(3,5);
 			}
 			if (text[i]==='-') addLine(9, 11);
+			if (text[i]===':') {
+				addLine(4, 7);
+				addLine(10, 13);
+			}
+			if (text[i]==='=') {
+				addLine(6, 8);
+				addLine(9, 11);
+			}
+			if (text[i]==='+') {
+				addLine(7, 13);
+				addLine(9, 11);
+			}			
+			if (text[i]===',') {
+				addLine(13, 16);
+			}			
+			if (text[i]==='.') {
+				addLine(12, 13);
+				addLine(13, 16);
+				addLine(15, 16);
+				addLine(12, 15);
+			}
 			caret += 3;			
 		}		
 
@@ -85,7 +113,7 @@ var text = function() {
 				"GEOMETRY",
 	            "SOLID",
 	            "OBJECT",
-	            "BOUNDED",
+	            "CONFORMITY",
 	            "SQUARE",
 				"SINGULAR",
 	            "FACES",           
@@ -119,13 +147,13 @@ var text = function() {
 		shader.uniform('uProjection');
 		shader.uniform('uView');
 		shader.uniform('uModel');
-		shader.uniform('uColor');
-		gl.lineWidth(3);
+		shader.uniform('uColor');		
 	};
 
 	var model = new Matrix4();
 
 	var update = function(gl, time, dt) {
+		gl.lineWidth(3);
 		var projection = camera.projection();
 		var view = camera.view();
 
