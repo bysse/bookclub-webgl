@@ -95,13 +95,13 @@ var scroller = function() {
         		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
         	}, { 
-        		text: "RAHM",
+        		text: "ORREBORRE",
         		start: sync.totime(79),
         		stop:  sync.totime(80),
         		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
-        	}, { 
-        		text: "PLACEHOLDER",
+        	}, { // 15
+        		text: "BAN",
         		start: sync.totime(80),
         		stop:  sync.totime(81),
         		fadeTime: sync.totime(.25),
@@ -113,15 +113,51 @@ var scroller = function() {
         		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
         	}, { 
-        		text: "AMIGA",
+        		text: "SASQ",
         		start: sync.totime(82),
+        		stop:  sync.totime(83),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "IRIDON",
+        		start: sync.totime(83),
         		stop:  sync.totime(84),
         		fadeTime: sync.totime(.25),
         		color: [1, 1, 1]
         	}, { 
-        		text: "YOU",
+        		text: "PIXELJUICE",
         		start: sync.totime(84),
+        		stop:  sync.totime(85),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { // 20
+        		text: "XOOMIE",
+        		start: sync.totime(85),
         		stop:  sync.totime(86),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "TANIS",
+        		start: sync.totime(86),
+        		stop:  sync.totime(87),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "GEEZER",
+        		start: sync.totime(87),
+        		stop:  sync.totime(88),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "MATHMAN",
+        		start: sync.totime(88),
+        		stop:  sync.totime(89),
+        		fadeTime: sync.totime(.25),
+        		color: [1, 1, 1]
+        	}, { 
+        		text: "YOU",
+        		start: sync.totime(89),
+        		stop:  sync.totime(91),
         		fadeTime: sync.totime(.5),
         		color: [1, 1, 1]
         	}
@@ -243,6 +279,12 @@ var scroller = function() {
 		fadein(gl, time, 16);
 		fadein(gl, time, 17);
 		fadein(gl, time, 18);		
+		fadein(gl, time, 19);		
+		fadein(gl, time, 20);
+		fadein(gl, time, 21);
+		fadein(gl, time, 22);
+		fadein(gl, time, 23);
+		fadein(gl, time, 24);
 	};
 
 	return {
