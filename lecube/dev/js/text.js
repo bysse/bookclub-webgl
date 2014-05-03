@@ -69,6 +69,10 @@ var text = function() {
 			draw : function(gl) {
 				gl.drawArrays(gl.LINES, 0, buffer.elements);
 			},
+			drawPartially : function(gl, alpha) {
+				var elem = Math.floor(clamp(alpha, 0, 1)*buffer.elements);
+				gl.drawArrays(gl.LINES, 0, elem);
+			},			
 			biggestXPos : biggestXPos
 		};		
 	};

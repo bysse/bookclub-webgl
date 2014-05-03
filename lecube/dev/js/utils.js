@@ -30,3 +30,18 @@ var ease = {
 		return c/2*((t-=2)*t*t + 2) + b;
 	}
 };
+
+var linear = {
+	in : function(t, start, duration) {
+		if (t <= start) {
+			return 0;
+		}
+		if (t >= start + duration) {
+			return 1;
+		}
+		return (t - start) / duration;
+	},
+	out : function(t, start, duration) {
+		return 1 - linear.in(t, start, duration);
+	}	
+};
