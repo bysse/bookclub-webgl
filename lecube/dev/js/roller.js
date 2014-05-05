@@ -35,10 +35,11 @@ var roller = function() {
 		shader.uniform('uModel');
 		shader.uniform('uColor');
 
+		var i, x, y, z;
 		var random = new Alea(1);
 
 		var offset = [-250, 1, 0];
-		for (var i=pattern.length-1;i>=0;i--) {
+		for (i=pattern.length-1;i>=0;i--) {
 			if (pattern.charAt(i) == '.') {
 				continue;
 			}
@@ -46,9 +47,9 @@ var roller = function() {
 			var px = (i % 25);
 			var py = parseInt(i / 25);
 
-			var x = offset[0] + 2 * px;
-			var y = offset[1];
-			var z = offset[2] + 2 * py;
+			x = offset[0] + 2 * px;
+			y = offset[1];
+			z = offset[2] + 2 * py;
 
 			lecube.push([x, y, z]);
 		}
@@ -58,8 +59,8 @@ var roller = function() {
 		var current = null;
 		var lastZ = -1;
 		var delta = 0;
-		for (var i=0;i<CUBE_COUNT;i++) {
-			var z = lecube[i][2];
+		for (i=0;i<CUBE_COUNT;i++) {
+			z = lecube[i][2];
 
 			if (lastZ != z) {
 				lastZ = z;
@@ -70,7 +71,7 @@ var roller = function() {
 
 			delta += 1 + Math.floor(random()*3);
 
-			if (last != null) {
+			if (last !== null) {
 				for (var j=0;j<last.length;j++) {
 					if (lecube[i][0] - 2*delta === last[j]) {
 						delta++;			
@@ -80,8 +81,8 @@ var roller = function() {
 			}
 			current.push(lecube[i][0] - 2*delta);
 
-			var x = lecube[i][0] - 2*delta;
-			var y = lecube[i][1];		
+			x = lecube[i][0] - 2*delta;
+			y = lecube[i][1];		
 
 			lecube[i][0] += 150;	
 
@@ -91,17 +92,17 @@ var roller = function() {
 
 	var update = function(gl, time, dt) {
 		var t = time - sync.totime(7.5);
-		t += .1 * sync.step(time, 32);
+		t += 0.1 * sync.step(time, 32);
 
 		var step = sync.step(t, 0);
 
-		var T = t*2.*60./85.;
+		var T = t*2.0*60.0/85.0;
 		var alpha = step*(T % 1);
 
 		var dx = step * Math.floor(sync.tounit(2*t)) * 2;	
 		var dxfract = 2*alpha; 
 
-		var c = sync.interval(time, 4, 4, 62, 2) * .5;
+		var c = sync.interval(time, 4, 4, 62, 2) * 0.5;
 		var color = [c,0,0];
 
 

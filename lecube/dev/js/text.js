@@ -17,14 +17,15 @@ var text = function() {
 			if (xPos > biggestXPos) {
 				biggestXPos = xPos;
 			}
-		}
+		};
 
 		var addLine = function(a, b) {
 			push(a%3, Math.floor(a/3));
 			push(b%3, Math.floor(b/3));
-		}
+		};
 
-		for (var i=0;i<text.length;i++) {
+		var i, j;
+		for (i=0;i<text.length;i++) {
 			var index = text.charCodeAt(i)-65;
 			if (text[i] == '0') index = 26;
 			if (text[i] == '1') index = 27;
@@ -43,7 +44,7 @@ var text = function() {
 
 			var P = coords[index];
 			if (P) {
-				for (var j=1;j<P.length;j++) {
+				for (j=1;j<P.length;j++) {
 					addLine(P.charCodeAt(j-1)-65,P.charCodeAt(j)-65);
 				}
 				if (text[i]==='I'||text[i]==='J') addLine(3,4);
@@ -81,9 +82,9 @@ var text = function() {
 			vertices[b] = t;
 		};
 		var lines = vertices.length / (3*2);
-		for (var i=0;i<vertices.length;i+=6) {
+		for (i=0;i<vertices.length;i+=6) {
 			var other = Math.floor(rand()*lines)*6;
-			for (var j=0;j<6;j++) {
+			for (j=0;j<6;j++) {
 				swap(i+j, other+j);
 			}
 		}
@@ -173,10 +174,10 @@ var text = function() {
 
 		// Make the colors cycle when the plasma shows
 		var a = sync.interval(time, 64, 2, 80, 4);
-		var t = .3 * sync.tounit(time * 20);
-		var red   = .4*(1-a) + a*(Math.sin(t + 0) * .5 + .5);
-		var green = .4*(1-a) + a*(Math.sin(t + 2) * .5 + .5);
-		var blue  = .4*(1-a) + a*(Math.sin(t + 4) * .5 + .5);
+		var t = 0.3 * sync.tounit(time * 20);
+		var red   = 0.4*(1-a) + a*(Math.sin(t + 0) * 0.5 + 0.5);
+		var green = 0.4*(1-a) + a*(Math.sin(t + 2) * 0.5 + 0.5);
+		var blue  = 0.4*(1-a) + a*(Math.sin(t + 4) * 0.5 + 0.5);
 		gl.uniform3f(shader.u.uColor, red, green, blue);
 
 
@@ -193,7 +194,7 @@ var text = function() {
 			model.setIdentity();		
 
 			if (i > count/2) {
-				x = 800 * (4 * (alpha - .5) - 1);
+				x = 800 * (4 * (alpha - 0.5) - 1);
 				z = 250;				
 			} else {
 				x = 800 * (4 * (alpha) - 1);

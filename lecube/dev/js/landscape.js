@@ -21,7 +21,7 @@ var landscape = function() {
 		};
 		
 		var push = function(x, y) {
-			var xlimit = Math.max(0, x*x/6000 - .1);
+			var xlimit = Math.max(0, x*x/6000 - 0.1);
 			var ylimit = Math.max(0, y*y/80000 - 1);
 			var scale = xlimit + ylimit;
 
@@ -43,14 +43,14 @@ var landscape = function() {
 				var py1 = py + scale;
 
 
-				if (y > 0 && (y&1) == 0 && x == 0) {
+				if (y > 0 && (y&1) === 0 && x === 0) {
 					push(px, py);
 				}
 
 				push(px, py);
 				push(px, py1);
 				
-				if ((y&1) == 1 && x + 1 == W) {
+				if ((y&1) === 1 && x + 1 === W) {
 					push(px, py);
 				}
 			}

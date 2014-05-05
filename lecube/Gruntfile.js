@@ -5,7 +5,9 @@ module.exports = function(grunt) {
 		'dev/js_vendor/jquery-2.1.0.js',
 		'dev/js_vendor/webgl-utils.js',
 		'dev/js_vendor/webgl-debug.js',
-		'dev/js_vendor/cuon-utils.js'
+		'dev/js_vendor/cuon-utils.js',
+		'dev/js_vendor/cuon-matrix.js',
+		'dev/js_vendor/simplex-noise.min.js'
 	];
 
 	grunt.initConfig({

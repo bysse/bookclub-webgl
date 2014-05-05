@@ -13,152 +13,152 @@ var scroller = function() {
         		start: 0,
         		stop: sync.totime(8),
         		x: [1, -6],
-        		y: [-.5, -.5],
+        		y: [-0.5, -0.5],
         		scale: 0.01,
-        		color: [.8, 0.2, 0.2]
+        		color: [0.8, 0.2, 0.2]
         	}, {
         		text: "KLOVMAN: CODE",
         		start: sync.totime(2),
         		stop:  sync.totime(3.75),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "WONDER: CODE + MUSIC",
         		start: sync.totime(4),
         		stop:  sync.totime(5.75),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "             LE CUBE",
         		start: sync.totime(6),
         		stop:  sync.totime(10),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "@KING 2014",
         		start: sync.totime(12),
         		stop:  sync.totime(15),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "SPHERES ARE BORING",
         		start: sync.totime(16),
         		stop:  sync.totime(19),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "LINES ARE TOO THIN",
         		start: sync.totime(20),
         		stop:  sync.totime(23),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, {
         		text: "CUBE IS THE NEW BLACK",
         		start: sync.totime(24),
         		stop:  sync.totime(27),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { // 8
         		text: "WE ARE CUBING",
         		start: sync.totime(72),
         		stop:  sync.totime(74),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "PANDA DESIGN",
         		start: sync.totime(74),
         		stop:  sync.totime(75),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { // 10
         		text: "ZWORP",
         		start: sync.totime(75),
         		stop:  sync.totime(76),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "DERIL",
         		start: sync.totime(76),
         		stop:  sync.totime(77),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { // 12
         		text: "PILGRIM",
         		start: sync.totime(77),
         		stop:  sync.totime(78),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "JONAS + DAVID",
         		start: sync.totime(78),
         		stop:  sync.totime(79),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "ORREBORRE",
         		start: sync.totime(79),
         		stop:  sync.totime(80),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { // 15
         		text: "BAN",
         		start: sync.totime(80),
         		stop:  sync.totime(81),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "ELIN",
         		start: sync.totime(81),
         		stop:  sync.totime(82),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "SASQ",
         		start: sync.totime(82),
         		stop:  sync.totime(83),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "IRIDON",
         		start: sync.totime(83),
         		stop:  sync.totime(84),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "PIXELJUICE",
         		start: sync.totime(84),
         		stop:  sync.totime(85),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { // 20
         		text: "XOOMIE",
         		start: sync.totime(85),
         		stop:  sync.totime(86),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "TANIS",
         		start: sync.totime(86),
         		stop:  sync.totime(87),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "GEEZER",
         		start: sync.totime(87),
         		stop:  sync.totime(88),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "MATHMAN",
         		start: sync.totime(88),
         		stop:  sync.totime(89),
-        		fadeTime: sync.totime(.25),
+        		fadeTime: sync.totime(0.25),
         		color: [1, 1, 1]
         	}, { 
         		text: "YOU",
         		start: sync.totime(89),
         		stop:  sync.totime(91),
-        		fadeTime: sync.totime(.5),
+        		fadeTime: sync.totime(0.5),
         		color: [1, 1, 1]
         	}
         ];
@@ -195,7 +195,7 @@ var scroller = function() {
 		var y = detail.y[0] + alpha * (detail.y[1] - detail.y[0]);
 		var z = -1;	
 	
-		var scale = detail.scale || .02;
+		var scale = detail.scale || 0.02;
 		model.setIdentity();
 		model.translate(x, y, z);
 		model.scale(scale, scale, scale);
@@ -206,7 +206,7 @@ var scroller = function() {
 		var message = detail.message;	
 		message.bind(gl, shader.a.vertex);
 
-		if (index == 0) {
+		if (index === 0) {
 			var a = sync.interval(globaltime, 64, 4, 80, 4);
 			message.drawPartially(gl, 1 - a*distortion);
 
@@ -229,9 +229,9 @@ var scroller = function() {
 		var alpha = (time - detail.start) / (detail.stop - detail.start);
 		var message = detail.message;	
 
-		var scale = detail.scale || .02;
+		var scale = detail.scale || 0.02;
 		var x =  -0.98; //(message.biggestXPos / 2)*scale;
-		var y = 9/16 - .015;
+		var y = 9/16 - 0.015;
 		var z = -1;
 
 		model.setIdentity();
@@ -255,7 +255,7 @@ var scroller = function() {
 
 		gl.lineWidth(2);
 		if (sync.tounit(time) < 88) {
-			var warning = time - sync.totime(8)
+			var warning = time - sync.totime(8);
 			scroll(gl, warning % sync.totime(8), 0, time) ;
 		}
 

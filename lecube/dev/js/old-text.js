@@ -15,12 +15,12 @@ var text = function() {
 			if (xPos > biggestXPos) {
 				biggestXPos = xPos;
 			}
-		}
+		};
 
 		var addLine = function(a, b) {
 			push(a%3, Math.floor(a/3));
 			push(b%3, Math.floor(b/3));
-		}
+		};
 
 		for (var i=0;i<text.length;i++) {
 			var P = coords[text.charCodeAt(i)-65];
@@ -114,7 +114,8 @@ var text = function() {
 		}
 
 		var index = sync.get16partIndex(time);
-		if (hasNew16BeatHappened = curBeatIndex != index) {
+		hasNew16BeatHappened = curBeatIndex;
+		if (curBeatIndex != index) {
 			curBeatIndex = index;
 		}
 
@@ -125,8 +126,8 @@ var text = function() {
 				index == 9 ||
 				index == 11 ||
 				index == 14 ||
-				index == 15)
-				&& hasNew16BeatHappened) {
+				index == 15) && 
+			hasNew16BeatHappened) {
 
 			var projection = camera.projection();
 			var view = camera.view();

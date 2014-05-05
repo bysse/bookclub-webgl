@@ -45,6 +45,7 @@ var camera = function() {
 
 	var update = function(gl, time, dt) {
 		var unit = sync.tounit(time);
+		var t, radius;
 		if (unit < 2) { 
 			// far away
 			eyeX = -300 + 10*time;
@@ -55,7 +56,7 @@ var camera = function() {
 			centerZ = eyeZ + 150;
 		} else if (unit < 4) {
 			// midle range
-			var t = time - sync.totime(2);
+			t = time - sync.totime(2);
 			eyeX = -300 + 10*t;
 			eyeY = 10;
 			eyeZ = -20;
@@ -70,12 +71,12 @@ var camera = function() {
 			closeLeft(time - sync.totime(12), -280);
 		} else if (unit < 20) {
 			// in front
-			var t = time - sync.totime(18);
+			t = time - sync.totime(18);
 			eyeX = -160 + 2*t;
 			eyeY = 1;
 			eyeZ = 5;
 			centerX = eyeX - 4;
-			centerY = eyeY + .5;
+			centerY = eyeY + 0.5;
 			centerZ = eyeZ;
 		} else if (unit < 24) {
 			closeRight(time - sync.totime(20), -260);
@@ -83,7 +84,7 @@ var camera = function() {
 			closeLeft(time - sync.totime(24), -240);
 		} else if (unit < 32) {
 			// over the top again...
-			var t = time - sync.totime(28);
+			t = time - sync.totime(28);
 			eyeX = -120 + 2*t;
 			eyeY = 15;
 			eyeZ = 5;
@@ -91,7 +92,7 @@ var camera = function() {
 			centerY = eyeY - 2;
 			centerZ = eyeZ;
 		} else if (unit < 72) {
-			var t = time - sync.totime(32);
+			t = time - sync.totime(32);
 
 			var tc = ease.inOut(time - sync.totime(54), 0, 1, sync.totime(10));
 
@@ -99,24 +100,24 @@ var camera = function() {
 			centerY = 1;
 			centerZ = 4;
 
-			var radius = 15 + 10*sync.fadein(t, 0, 8) - ease.inOut(time - sync.totime(62), 0, 10, sync.totime(6));
+			radius = 15 + 10*sync.fadein(t, 0, 8) - ease.inOut(time - sync.totime(62), 0, 10, sync.totime(6));
 
-			var angle = 3 + .1 * ease.inOut(t, 0, sync.totime(55-32), sync.totime(55-32));
+			var angle = 3 + 0.1 * ease.inOut(t, 0, sync.totime(55-32), sync.totime(55-32));
 			eyeX = centerX + Math.sin(angle)*radius + tc * 2;
 			eyeY = 8 + 16 * sync.fadein(t, 0, 8) - tc*4 ;
 			eyeZ = centerZ + Math.cos(angle)*radius - tc*4;	
 		} else {			
-			var t = time - sync.totime(72);
+			t = time - sync.totime(72);
 
 			centerX = -60;
 			centerY = 1;
 			centerZ = 4;
 
-			var radius = 40 + ease.inOut(t, 0, 30, sync.totime(96-72));
+			radius = 40 + ease.inOut(t, 0, 30, sync.totime(96-72));
 
-			eyeX = centerX + Math.sin(t*.25)*radius;
+			eyeX = centerX + Math.sin(t*0.25)*radius;
 			eyeY = 15 + ease.inOut(t, 0, 35, sync.totime(96-72));
-			eyeZ = centerZ + Math.cos(t*.25)*radius;
+			eyeZ = centerZ + Math.cos(t*0.25)*radius;
 		}
 
 		view.setLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, 0, 1, 0);
